@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/components/add_task_screen.dart';
 import 'package:flutter_todo/components/task_list.dart';
-import 'package:flutter_todo/components/task_tile.dart';
+import 'package:flutter_todo/model/task_data.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
+class TasksScreen extends StatelessWidget {
 
-class _TasksScreenState extends State<TasksScreen> {
   Widget buildBottonSheet(BuildContext context) {
     return Container(
       child: Center(
@@ -63,13 +60,20 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontSize: 50,
                       fontWeight: FontWeight.w700),
                 ),
-                Text('12 Tasks',
+                Text('${Provider.of<TaskData>(context).taskCount} Tasks',
                     style: TextStyle(color: Colors.white, fontSize: 18)),
               ],
             ),
           ),
           Expanded(
-            child: TaskList(),
+            child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0))),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                child: TaskList()),
           )
         ],
       ),
